@@ -7,6 +7,7 @@ function CalcButtons({
 	handleClickAction,
 	getResult,
 	resetCalculator,
+	deleteNumber,
 }) {
 	return (
 		<>
@@ -36,7 +37,7 @@ function CalcButtons({
 					9
 				</button>
 				<button
-					onClick={handleClickAction}
+					onClick={deleteNumber}
 					className="button-type-two action-button"
 					value={'DEL'}
 					label={'DEL'}

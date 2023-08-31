@@ -18,14 +18,16 @@ function App() {
 	const handleButtonClick = (variable) => {
 		if (currentAction === '') {
 			if (variable === '.' && !firstClickedNumber.toString().includes('.')) {
-				setFirstClickedNumber((prevNumber) => prevNumber.toString() + variable);
+				setFirstClickedNumber(
+					(prevNumber) => prevNumber.toString() + '0' + variable
+				);
 			} else if (variable !== '.') {
 				setFirstClickedNumber((prevNumber) => prevNumber.toString() + variable);
 			}
 		} else {
 			if (variable === '.' && !secondClickedNumber.toString().includes('.')) {
 				setSecondClickedNumber(
-					(prevNumber) => prevNumber.toString() + variable
+					(prevNumber) => prevNumber.toString() + '0' + variable
 				);
 			} else if (variable !== '.') {
 				setSecondClickedNumber(
@@ -33,6 +35,12 @@ function App() {
 				);
 			}
 		}
+
+		// if (variable && firstClickedNumber && !currentAction) {
+		// 	setFirstClickedNumber('');
+		// 	setSecondClickedNumber('');
+		// 	currentAction('');
+		// }
 	};
 
 	useEffect(() => {
@@ -47,18 +55,20 @@ function App() {
 
 	useEffect(() => {
 		console.log('NEW RENDER');
-		if (
+
+		if (!firstClickedNumber) {
+			setDisplayResultNumber('0');
+		} else if (
 			clickedEqualSign &&
 			!isNaN(firstClickedNumber) &&
 			!isNaN(secondClickedNumber)
 		) {
-			setDisplayResultNumber(
-				(firstClickedNumber + secondClickedNumber).toString()
-			);
+			setDisplayResultNumber(firstClickedNumber + secondClickedNumber);
 			setFirstClickedNumber(firstClickedNumber + secondClickedNumber);
 			setSecondClickedNumber('');
 			setCurrentAction('');
 		}
+
 		setClickedEqualSign(false);
 		console.log('clickedEqualSign :', clickedEqualSign);
 		console.log('currentAction in useEffect :', currentAction);
@@ -77,35 +87,40 @@ function App() {
 		} else console.log('Pick an action to do something with the numbers');
 	};
 
+	const resultByAction = (result) => {
+		setDisplayResultNumber(result.toString());
+		setFirstClickedNumber(result);
+		setSecondClickedNumber('');
+		setCurrentAction('');
+	};
+
 	const getResult = () => {
 		setClickedEqualSign(true);
 		if (currentAction === '+') {
 			const result =
 				parseFloat(firstClickedNumber) + parseFloat(secondClickedNumber);
-			setDisplayResultNumber(result.toString());
-			setFirstClickedNumber(result);
-			setSecondClickedNumber('');
-			setCurrentAction('');
+			resultByAction(result);
 		} else if (currentAction === '-') {
 			const result =
 				parseFloat(firstClickedNumber) - parseFloat(secondClickedNumber);
-			setDisplayResultNumber(result.toString());
-			setFirstClickedNumber(result);
-			setSecondClickedNumber('');
-			setCurrentAction('');
+			resultByAction(result);
 		} else if (currentAction === 'x') {
 			const result =
 				parseFloat(firstClickedNumber) * parseFloat(secondClickedNumber);
-			setDisplayResultNumber(result.toString());
-			setFirstClickedNumber(result);
-			setSecondClickedNumber('');
-			setCurrentAction('');
+			resultByAction(result);
 		} else if (currentAction === '/') {
 			const result =
 				parseFloat(firstClickedNumber) / parseFloat(secondClickedNumber);
-			setDisplayResultNumber(result.toString());
-			setFirstClickedNumber(result);
+			resultByAction(result);
+		}
+	};
+
+	const deleteNumber = () => {
+		if (secondClickedNumber && currentAction) {
 			setSecondClickedNumber('');
+		} else if (firstClickedNumber && !currentAction && !secondClickedNumber) {
+			setFirstClickedNumber('');
+			setClickedEqualSign(false);
 			setCurrentAction('');
 		}
 	};
@@ -137,6 +152,7 @@ function App() {
 						handleClickAction={handleClickAction}
 						getResult={getResult}
 						resetCalculator={resetCalculator}
+						deleteNumber={deleteNumber}
 					/>
 				</div>
 			</div>
