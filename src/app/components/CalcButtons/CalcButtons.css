@@ -1,0 +1,120 @@
+.four-col-button-container {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	grid-template-rows: repeat(4, 1fr);
+	gap: 10px;
+	justify-items: center;
+}
+
+.two-col-button-container {
+	margin-top: 10px;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	justify-items: center;
+	gap: 20px;
+}
+
+button {
+	width: 85px;
+	height: 45px;
+	border: none;
+	margin: 5px 0 5px 0;
+	font-size: 23px;
+	font-weight: 700;
+	border-radius: 8px;
+	text-align: center;
+}
+
+.two-col-button-container > * {
+	width: 100%;
+}
+
+.button-type-one {
+	color: var(--very-dark-grayish-blue);
+	background-color: var(--light-grayish-orange-key-bc);
+	border-bottom: solid 4px var(--grayish-orange-key-shadow);
+}
+
+.button-type-one:hover {
+	background-color: hsl(40, 11%, 95%);
+}
+
+.button-type-two {
+	background-color: var(--blue-key-background);
+	color: var(--white);
+	border-bottom: solid 4px var(--blue-key-shadow);
+}
+
+.button-type-two:hover {
+	background-color: hsl(225, 39%, 69%);
+}
+
+.button-type-three {
+	background-color: var(--red-background-toggle);
+	color: var(--white);
+	border-bottom: solid 4px var(--dark-red-key-shadow);
+}
+
+.button-type-three:hover {
+	background-color: hsl(6, 77%, 66%);
+}
+
+/* THEME 2 */
+
+.theme2-theme .button-type-one {
+	color: var(--very-dark-grayish-yellow);
+	background-color: var(--light-grayish-yellow-key-bc);
+	border-bottom: solid 4px var(--dark-grayish-orange-key-shadow);
+}
+
+.theme2-theme .button-type-one:hover {
+	background-color: hsl(0, 0%, 100%);
+}
+
+.theme2-theme .button-type-two {
+	background-color: var(--dark-moderate-cyan-background);
+	border-bottom: solid 4px var(--very-dark-cyan-shadow);
+}
+
+.theme2-theme .button-type-two:hover {
+	background-color: hsl(185, 41%, 52%);
+}
+
+.theme2-theme .button-type-three {
+	background-color: var(--orange-background-toggle);
+	border-bottom: solid 4px var(--dark-orange-shadow);
+}
+
+.theme2-theme .button-type-three:hover {
+	background-color: hsl(25, 87%, 64%);
+}
+
+/* THEME 3 */
+.theme3-theme .button-type-one {
+	color: var(--light-yellow);
+	background-color: var(--very-dark-violet-background);
+	border-bottom: solid 4px var(--dark-magenta-shadow);
+}
+
+.theme3-theme .button-type-one:hover {
+	background-color: hsl(281, 53%, 37%);
+}
+
+.theme3-theme .button-type-two {
+	background-color: var(--dark-violet-background);
+	border-bottom: solid 4px var(--vivid-magenta-key-shadow);
+}
+
+.theme3-theme .button-type-two:hover {
+	background-color: hsl(268, 40%, 40%);
+}
+
+.theme3-theme .button-type-three {
+	background-color: var(--pure-cyan-background-toggle);
+	border-bottom: solid 4px var(--soft-cyan-shadow);
+	color: var(--very-dark-blue);
+}
+
+.theme3-theme .button-type-three:hover {
+	background-color: hsl(176, 83%, 80%);
+}

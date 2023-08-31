@@ -1,6 +1,84 @@
-#root {
-	max-width: 1280px;
+.App {
+	max-width: var(--desktop-width);
+	min-height: 100vh;
+	min-width: 100vw;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	background-color: var(--dark-blue-main-background);
+}
+
+.calc-container {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	max-width: 450px;
+	min-height: 650px;
+	box-sizing: border-box;
+	width: 100%;
+}
+
+.display-result-container {
+	box-sizing: border-box;
+	width: 450px;
 	margin: 0 auto;
-	padding: 2rem;
-	text-align: center;
+	text-align: end;
+	padding: 15px 0;
+	background-color: var(--dark-blue-screen-background);
+	border-radius: 8px;
+	margin-bottom: 25px;
+}
+
+.display-result-container p {
+	margin: 0 45px 0 0;
+	font-size: 38px;
+	font-weight: 700;
+	color: var(--white);
+}
+
+.button-container {
+	box-sizing: border-box;
+	width: 450px;
+	background-color: var(--dark-blue-screen-background);
+	border-radius: 8px;
+	margin: 0 auto;
+	padding: 20px;
+}
+
+/* THEME 2 */
+
+.App.theme2-theme {
+	background-color: var(--light-gray-main-background);
+}
+
+.theme2-theme .display-result-container {
+	background-color: var(--very-light-gray-screen-background);
+}
+
+.theme2-theme .display-result-container p {
+	color: var(--very-dark-grayish-yellow);
+}
+
+.theme2-theme .button-container {
+	background-color: var(--grayish-red-toggle-keypad);
+}
+
+/* THEME 3 */
+
+.App.theme3-theme {
+	background-color: var(--very-dark-violet-main-background);
+}
+
+.theme3-theme .display-result-container {
+	background-color: var(--very-dark-violet-toggle-keypad-background);
+}
+
+.theme3-theme .display-result-container p {
+	color: var(--light-yellow);
+}
+
+.theme3-theme .button-container {
+	background-color: var(--very-dark-violet-toggle-keypad-background);
 }

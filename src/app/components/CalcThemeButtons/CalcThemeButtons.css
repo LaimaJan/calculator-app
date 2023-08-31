@@ -1,0 +1,122 @@
+.calc-name-theme-container {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+.calc-name {
+	display: flex;
+	align-items: center;
+}
+
+.calc-name p {
+	font-size: var(--font-size-numbers);
+	font-weight: 600;
+	margin-top: 40px;
+	color: var(--white);
+}
+
+.calc-theme-button-container p {
+	font-size: 14px;
+	margin-top: 40px;
+	margin-right: 10px;
+	font-weight: 500;
+
+	color: var(--white);
+}
+
+.calc-theme-button-container {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+.theme-container {
+	position: relative;
+	width: 111px;
+	height: 98px;
+}
+
+.theme-button-container {
+	background-color: #222d41;
+	width: 71px;
+	height: 28px;
+	position: relative;
+	left: 20px;
+	top: 45px;
+	border-radius: 14px;
+}
+
+.red-button {
+	width: 16px;
+	height: 16px;
+	background-color: var(--red-background-toggle);
+	border-radius: 8px;
+	position: relative;
+	top: 6px;
+	left: 6px;
+}
+
+.theme1-theme.red-button {
+	transition: transform 0.1s linear;
+	transform: translateX(0px);
+}
+
+.theme2-theme.red-button {
+	transition: transform 0.1s linear;
+	transform: translateX(20px);
+}
+
+.theme3-theme.red-button {
+	transition: transform 0.1s linear;
+	transform: translateX(40px);
+}
+
+.legend-text-container {
+	left: 22px;
+	display: inline-block;
+	position: absolute;
+	top: 23px;
+	color: #ffffff;
+	font-size: 13px;
+	text-align: center;
+}
+
+.legendText {
+	display: inline-block;
+	width: 20px;
+	padding-bottom: 33px;
+	user-select: none;
+	font-weight: 500;
+}
+
+/* THEME 2 */
+.theme2-theme .calc-name p,
+.theme2-theme .calc-theme-button-container p,
+.theme2-theme .legendText {
+	color: var(--very-dark-grayish-yellow);
+}
+
+.theme2-theme .theme-button-container {
+	background-color: var(--grayish-red-toggle-keypad);
+}
+
+.theme2-theme.red-button {
+	background-color: var(--orange-background-toggle);
+}
+
+/* THEME 3 */
+.theme3-theme .calc-name p,
+.theme3-theme .calc-theme-button-container p,
+.theme3-theme .legendText {
+	color: var(--light-yellow);
+}
+
+.theme3-theme .theme-button-container {
+	background-color: var(--very-dark-violet-toggle-keypad-background);
+}
+
+.theme3-theme.red-button {
+	background-color: var(--pure-cyan-background-toggle);
+}
