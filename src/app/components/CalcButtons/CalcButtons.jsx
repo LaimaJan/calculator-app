@@ -111,6 +111,7 @@ function CalcButtons({
 					className="button-type-one calculator-button"
 					value={'.'}
 					label={'.'}
+					onClick={() => handleButtonClick('.')}
 				>
 					.
 				</button>

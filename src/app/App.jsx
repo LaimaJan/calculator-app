@@ -5,8 +5,8 @@ import { useState, useEffect } from 'react';
 
 function App() {
 	const [currentTheme, setCurrentTheme] = useState('default');
-	const [firstClickedNumber, setFirstClickedNumber] = useState(0);
-	const [secondClickedNumber, setSecondClickedNumber] = useState(0);
+	const [firstClickedNumber, setFirstClickedNumber] = useState('');
+	const [secondClickedNumber, setSecondClickedNumber] = useState('');
 	const [displayResultNumber, setDisplayResultNumber] = useState(0);
 	const [currentAction, setCurrentAction] = useState('');
 	const [clickedEqualSign, setClickedEqualSign] = useState(false);
@@ -17,11 +17,21 @@ function App() {
 
 	const handleButtonClick = (variable) => {
 		if (currentAction === '') {
-			setFirstClickedNumber((prevNumber) => prevNumber * 10 + Number(variable));
+			if (variable === '.' && !firstClickedNumber.toString().includes('.')) {
+				setFirstClickedNumber((prevNumber) => prevNumber.toString() + variable);
+			} else if (variable !== '.') {
+				setFirstClickedNumber((prevNumber) => prevNumber.toString() + variable);
+			}
 		} else {
-			setSecondClickedNumber(
-				(prevNumber) => prevNumber * 10 + Number(variable)
-			);
+			if (variable === '.' && !secondClickedNumber.toString().includes('.')) {
+				setSecondClickedNumber(
+					(prevNumber) => prevNumber.toString() + variable
+				);
+			} else if (variable !== '.') {
+				setSecondClickedNumber(
+					(prevNumber) => prevNumber.toString() + variable
+				);
+			}
 		}
 	};
 
@@ -46,7 +56,7 @@ function App() {
 				(firstClickedNumber + secondClickedNumber).toString()
 			);
 			setFirstClickedNumber(firstClickedNumber + secondClickedNumber);
-			setSecondClickedNumber(0);
+			setSecondClickedNumber('');
 			setCurrentAction('');
 		}
 		setClickedEqualSign(false);
@@ -70,32 +80,39 @@ function App() {
 	const getResult = () => {
 		setClickedEqualSign(true);
 		if (currentAction === '+') {
-			console.log('currentAction :', currentAction);
-			setDisplayResultNumber(firstClickedNumber + secondClickedNumber);
-			setFirstClickedNumber(firstClickedNumber + secondClickedNumber);
-			setSecondClickedNumber(0);
+			const result =
+				parseFloat(firstClickedNumber) + parseFloat(secondClickedNumber);
+			setDisplayResultNumber(result.toString());
+			setFirstClickedNumber(result);
+			setSecondClickedNumber('');
 			setCurrentAction('');
 		} else if (currentAction === '-') {
-			setDisplayResultNumber(firstClickedNumber - secondClickedNumber);
-			setFirstClickedNumber(firstClickedNumber - secondClickedNumber);
-			setSecondClickedNumber(0);
+			const result =
+				parseFloat(firstClickedNumber) - parseFloat(secondClickedNumber);
+			setDisplayResultNumber(result.toString());
+			setFirstClickedNumber(result);
+			setSecondClickedNumber('');
 			setCurrentAction('');
 		} else if (currentAction === 'x') {
-			setDisplayResultNumber(firstClickedNumber * secondClickedNumber);
-			setFirstClickedNumber(firstClickedNumber * secondClickedNumber);
-			setSecondClickedNumber(0);
+			const result =
+				parseFloat(firstClickedNumber) * parseFloat(secondClickedNumber);
+			setDisplayResultNumber(result.toString());
+			setFirstClickedNumber(result);
+			setSecondClickedNumber('');
 			setCurrentAction('');
 		} else if (currentAction === '/') {
-			setDisplayResultNumber(firstClickedNumber / secondClickedNumber);
-			setFirstClickedNumber(firstClickedNumber / secondClickedNumber);
-			setSecondClickedNumber(0);
+			const result =
+				parseFloat(firstClickedNumber) / parseFloat(secondClickedNumber);
+			setDisplayResultNumber(result.toString());
+			setFirstClickedNumber(result);
+			setSecondClickedNumber('');
 			setCurrentAction('');
 		}
 	};
 
 	const resetCalculator = () => {
-		setFirstClickedNumber(0);
-		setSecondClickedNumber(0);
+		setFirstClickedNumber('');
+		setSecondClickedNumber('');
 		setDisplayResultNumber(0);
 		setCurrentAction('');
 		setClickedEqualSign(false);
