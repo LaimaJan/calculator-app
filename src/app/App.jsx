@@ -1,200 +1,184 @@
 import './App.css';
 import CalcThemeButtons from './components/CalcThemeButtons/CalcThemeButtons';
 import CalcButtons from './components/CalcButtons/CalcButtons';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 function App() {
 	const [currentTheme, setCurrentTheme] = useState('default');
-	const [firstClickedNumber, setFirstClickedNumber] = useState('');
-	const [secondClickedNumber, setSecondClickedNumber] = useState('');
-	const [displayResultNumber, setDisplayResultNumber] = useState(0);
-	const [currentAction, setCurrentAction] = useState('');
-	const [clickedEqualSign, setClickedEqualSign] = useState(false);
+	const [result, setResult] = useState('');
+	const [temporaryNumber, setTemporaryNumber] = useState('');
+	const [displayNumber, setDisplayNumber] = useState('0');
+	const [action, setAction] = useState('');
+	console.log('action :', action);
 
 	const changeTheme = (theme) => {
 		setCurrentTheme(theme);
 	};
 
-	const handleButtonClick = (variable) => {
-		const actionNow = currentAction;
-		console.log(actionNow);
+	const handleButton = (variable) => {
+		const number = variable;
 
-		if (!currentAction) {
-			// If no action is selected
-			if (variable === '.' && !firstClickedNumber.includes('.')) {
-				setFirstClickedNumber((prevNumber) => prevNumber + variable);
-				setDisplayResultNumber((prevNumber) => prevNumber + variable);
-			} else if (actionNow === '-') {
-				setFirstClickedNumber('-' + firstClickedNumber);
-				setDisplayResultNumber('-' + displayResultNumber);
-			} else if (/^-?[0-9]*\.?[0-9]*$/.test(firstClickedNumber + variable)) {
-				const updatedNumber = firstClickedNumber + variable;
-				setFirstClickedNumber(updatedNumber);
-				setDisplayResultNumber(updatedNumber);
+		if (!action) {
+			console.log('numberOne :', number);
+			setResult(number);
+			setDisplayNumber(number);
+		} else {
+			console.log('numberTwo :', number);
+			setTemporaryNumber(number);
+			setDisplayNumber(number);
+
+			calculateResult();
+		}
+	};
+
+	const getAction = (calculatorAction) => {
+		console.log('getting the action :', calculatorAction);
+		setAction(calculatorAction);
+	};
+
+	const calculateResult = () => {
+		const calculatorAction = action;
+
+		console.log('calculateResult function in action:', calculatorAction);
+
+		switch (calculatorAction) {
+			case '+':
+				sumNumbers();
+
+				break;
+			case '-':
+				subtractNumbers();
+
+				break;
+			case '*':
+				multiplyNumbers();
+
+				break;
+			case '/':
+				divideNumbers();
+				break;
+
+			default:
+				break;
+		}
+	};
+
+	const sumNumbers = () => {
+		const num1 = parseFloat(result);
+
+		setTemporaryNumber((prevNumberTwo) => {
+			const num2 = parseFloat(prevNumberTwo);
+
+			if (!isNaN(num1) && !isNaN(num2)) {
+				const sum = num1 + num2;
+				setResult(sum);
+
+				console.log('sumNumbers:', sum);
+
+				setTemporaryNumber('');
+				setAction('');
+
+				return String(sum);
 			}
-		} else if (currentAction) {
-			// If an action is selected
-			if (variable === '.' && !secondClickedNumber.includes('.')) {
-				setSecondClickedNumber((prevNumber) => prevNumber + variable);
-				setDisplayResultNumber((prevNumber) => prevNumber + variable);
-			} else if (variable === '-' && !secondClickedNumber.includes('-')) {
-				setSecondClickedNumber('-' + secondClickedNumber);
-				setDisplayResultNumber('-' + displayResultNumber);
-			} else if (/^-?[0-9]*\.?[0-9]*$/.test(secondClickedNumber + variable)) {
-				const updatedNumber = secondClickedNumber + variable;
-				setSecondClickedNumber(updatedNumber);
-				setDisplayResultNumber(updatedNumber);
+
+			return prevNumberTwo;
+		});
+	};
+
+	const subtractNumbers = () => {
+		const num1 = parseFloat(result);
+
+		setTemporaryNumber((prevNumberTwo) => {
+			const num2 = parseFloat(prevNumberTwo);
+
+			if (!isNaN(num1) && !isNaN(num2)) {
+				const subraction = num1 - num2;
+				setResult(subraction);
+
+				console.log('subraction:', subraction);
+
+				setTemporaryNumber('');
+				setAction('');
+
+				return String(subraction);
 			}
-		}
+
+			return prevNumberTwo;
+		});
 	};
 
-	// const handleButtonClick = (variable) => {
-	// 	if (clickedEqualSign) {
-	// 		setFirstClickedNumber(variable);
-	// 		setSecondClickedNumber('');
-	// 		setDisplayResultNumber(variable);
-	// 		setClickedEqualSign(false);
-	// 	} else if (!currentAction) {
-	// 		if (
-	// 			(firstClickedNumber === '0' && variable === '.') ||
-	// 			(variable === '.' && !firstClickedNumber.includes('.'))
-	// 		) {
-	// 			setFirstClickedNumber('0.');
-	// 			setDisplayResultNumber('0.');
-	// 		} else {
-	// 			const updatedNumber = `${firstClickedNumber}${variable}`;
-	// 			setFirstClickedNumber(updatedNumber);
-	// 			setDisplayResultNumber(updatedNumber);
-	// 		}
-	// 	} else if (currentAction) {
-	// 		if (
-	// 			(secondClickedNumber === '0' && variable === '.') ||
-	// 			(variable === '.' && !secondClickedNumber.includes('.'))
-	// 		) {
-	// 			setSecondClickedNumber('0.');
-	// 			setDisplayResultNumber('0.');
-	// 		} else {
-	// 			const updatedNumber = `${secondClickedNumber}${variable}`;
-	// 			setSecondClickedNumber(updatedNumber);
-	// 		}
-	// 	}
-	// };
+	const multiplyNumbers = () => {
+		const num1 = parseFloat(result);
 
-	useEffect(() => {
-		setDisplayResultNumber(firstClickedNumber);
-	}, [firstClickedNumber]);
+		setTemporaryNumber((prevNumberTwo) => {
+			const num2 = parseFloat(prevNumberTwo);
 
-	useEffect(() => {
-		setDisplayResultNumber(secondClickedNumber);
-	}, [secondClickedNumber]);
+			if (!isNaN(num1) && !isNaN(num2)) {
+				const multiplication = num1 * num2;
+				setResult(multiplication);
 
-	useEffect(() => {
-		console.log('NEW RENDER');
+				console.log('multiplication:', multiplication);
 
-		if (
-			!firstClickedNumber &&
-			!secondClickedNumber &&
-			!currentAction &&
-			!clickedEqualSign
-		) {
-			setDisplayResultNumber('0');
-		} else if (
-			clickedEqualSign &&
-			!isNaN(firstClickedNumber) &&
-			!isNaN(secondClickedNumber)
-		) {
-			console.log('USEFEKTE11111');
-			setDisplayResultNumber(firstClickedNumber + secondClickedNumber);
-			setFirstClickedNumber(firstClickedNumber + secondClickedNumber);
-			setSecondClickedNumber('');
-			setCurrentAction('');
-		} else if (
-			!clickedEqualSign &&
-			currentAction &&
-			firstClickedNumber &&
-			!secondClickedNumber
-		) {
-			console.log('PERPANAUDOJAM VISKA');
-			setDisplayResultNumber(firstClickedNumber + secondClickedNumber);
-			setFirstClickedNumber(firstClickedNumber + secondClickedNumber);
-			setSecondClickedNumber('');
-		}
+				setTemporaryNumber('');
+				setAction('');
 
-		setClickedEqualSign(false);
-		console.log('clickedEqualSign :', clickedEqualSign);
-		console.log('currentAction in useEffect :', currentAction);
-		console.log('firstClickedNumber :', firstClickedNumber);
-		console.log('secondClickedNumber :', secondClickedNumber);
-		console.log('displayedNumber :', displayResultNumber);
-	}, [clickedEqualSign, firstClickedNumber, secondClickedNumber]);
+				return String(multiplication);
+			}
 
-	const handleClickAction = (action) => {
-		const clickedAction = action.target.value;
-
-		if (
-			clickedAction === '+' ||
-			clickedAction === '-' ||
-			clickedAction === 'x' ||
-			clickedAction === '/'
-		) {
-			setCurrentAction(clickedAction);
-		} else console.log('Pick an action to do something with the numbers');
+			return prevNumberTwo;
+		});
 	};
 
-	const resultByAction = (result) => {
-		setDisplayResultNumber(result.toString());
-		setFirstClickedNumber(result);
-		setSecondClickedNumber('');
-		setCurrentAction('');
-	};
+	const divideNumbers = () => {
+		const num1 = parseFloat(result);
 
-	const getResult = () => {
-		setClickedEqualSign(true);
-		if (currentAction === '+') {
-			const result =
-				parseFloat(firstClickedNumber) + parseFloat(secondClickedNumber);
-			resultByAction(result);
-		} else if (currentAction === '-') {
-			const result =
-				parseFloat(firstClickedNumber) - parseFloat(secondClickedNumber);
-			resultByAction(result);
-		} else if (currentAction === 'x') {
-			const result =
-				parseFloat(firstClickedNumber) * parseFloat(secondClickedNumber);
-			resultByAction(result);
-		} else if (currentAction === '/') {
-			const result =
-				parseFloat(firstClickedNumber) / parseFloat(secondClickedNumber);
-			resultByAction(result);
-		}
+		setTemporaryNumber((prevNumberTwo) => {
+			const num2 = parseFloat(prevNumberTwo);
+
+			if (!isNaN(num1) && !isNaN(num2)) {
+				const division = num1 / num2;
+				setResult(division);
+
+				console.log('division:', division);
+
+				setTemporaryNumber('');
+				setAction('');
+
+				return String(division);
+			}
+
+			return prevNumberTwo;
+		});
 	};
 
 	const deleteNumber = () => {
-		if (firstClickedNumber && secondClickedNumber && currentAction) {
-			console.log('ISTRINAM ANTRAJI SKAICIUKA');
-			setSecondClickedNumber('');
-			setFirstClickedNumber(firstClickedNumber);
-			setDisplayResultNumber(firstClickedNumber);
-			setClickedEqualSign(false);
-		} else if (firstClickedNumber && !currentAction && !secondClickedNumber) {
-			console.log('ISTRINAM PIRMAJI SKAICIUKA1111111');
-			setFirstClickedNumber('');
-			setClickedEqualSign(false);
-			setCurrentAction('');
-		} else if (firstClickedNumber && currentAction && !secondClickedNumber) {
-			console.log('ISTRINAM PIRMAJI SKAICIUKA222222222');
-			setFirstClickedNumber('');
-			setClickedEqualSign(false);
-			setCurrentAction('');
+		console.log('delete working');
+		if (result && temporaryNumber && action) {
+			setTemporaryNumber('');
+			displayNumber(result);
+		} else if (result && !temporaryNumber && !action) {
+			console.log('aaaaa');
+			setResult('');
+			setDisplayNumber('0');
+		} else if (result && !temporaryNumber && action) {
+			console.log('aaaaa');
+			setResult('');
+			setDisplayNumber('0');
 		}
 	};
 
-	const resetCalculator = () => {
-		setFirstClickedNumber('');
-		setSecondClickedNumber('');
-		setDisplayResultNumber(0);
-		setCurrentAction('');
-		setClickedEqualSign(false);
+	const resetResult = () => {
+		console.log('reset working');
+		setTemporaryNumber('');
+		setResult('');
+		setDisplayNumber('0');
+		setAction('');
+	};
+
+	const getFinalResult = () => {
+		console.log('getFinalResult:');
+
+		setDisplayNumber(result);
 	};
 
 	return (
@@ -207,16 +191,16 @@ function App() {
 					currentTheme={currentTheme}
 				/>
 				<div className="display-result-container">
-					<p>{displayResultNumber}</p>
+					<p>{displayNumber}</p>
 				</div>
 				<div className="button-container">
 					<CalcButtons
 						currentTheme={currentTheme}
-						handleButtonClick={handleButtonClick}
-						handleClickAction={handleClickAction}
-						getResult={getResult}
-						resetCalculator={resetCalculator}
+						handleButton={handleButton}
+						getAction={getAction}
+						getFinalResult={getFinalResult}
 						deleteNumber={deleteNumber}
+						resetResult={resetResult}
 					/>
 				</div>
 			</div>
