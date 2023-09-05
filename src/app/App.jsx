@@ -16,62 +16,116 @@ function App() {
 	};
 
 	const handleButtonClick = (variable) => {
-		if (currentAction === '') {
-			if (variable === '.' && !firstClickedNumber.toString().includes('.')) {
-				setFirstClickedNumber(
-					(prevNumber) => prevNumber.toString() + '0' + variable
-				);
-			} else if (variable !== '.') {
-				setFirstClickedNumber((prevNumber) => prevNumber.toString() + variable);
+		const actionNow = currentAction;
+		console.log(actionNow);
+
+		if (!currentAction) {
+			// If no action is selected
+			if (variable === '.' && !firstClickedNumber.includes('.')) {
+				setFirstClickedNumber((prevNumber) => prevNumber + variable);
+				setDisplayResultNumber((prevNumber) => prevNumber + variable);
+			} else if (actionNow === '-') {
+				setFirstClickedNumber('-' + firstClickedNumber);
+				setDisplayResultNumber('-' + displayResultNumber);
+			} else if (/^-?[0-9]*\.?[0-9]*$/.test(firstClickedNumber + variable)) {
+				const updatedNumber = firstClickedNumber + variable;
+				setFirstClickedNumber(updatedNumber);
+				setDisplayResultNumber(updatedNumber);
 			}
-		} else {
-			if (variable === '.' && !secondClickedNumber.toString().includes('.')) {
-				setSecondClickedNumber(
-					(prevNumber) => prevNumber.toString() + '0' + variable
-				);
-			} else if (variable !== '.') {
-				setSecondClickedNumber(
-					(prevNumber) => prevNumber.toString() + variable
-				);
+		} else if (currentAction) {
+			// If an action is selected
+			if (variable === '.' && !secondClickedNumber.includes('.')) {
+				setSecondClickedNumber((prevNumber) => prevNumber + variable);
+				setDisplayResultNumber((prevNumber) => prevNumber + variable);
+			} else if (variable === '-' && !secondClickedNumber.includes('-')) {
+				setSecondClickedNumber('-' + secondClickedNumber);
+				setDisplayResultNumber('-' + displayResultNumber);
+			} else if (/^-?[0-9]*\.?[0-9]*$/.test(secondClickedNumber + variable)) {
+				const updatedNumber = secondClickedNumber + variable;
+				setSecondClickedNumber(updatedNumber);
+				setDisplayResultNumber(updatedNumber);
 			}
 		}
-
-		// if (variable && firstClickedNumber && !currentAction) {
-		// 	setFirstClickedNumber('');
-		// 	setSecondClickedNumber('');
-		// 	currentAction('');
-		// }
 	};
+
+	// const handleButtonClick = (variable) => {
+	// 	if (clickedEqualSign) {
+	// 		setFirstClickedNumber(variable);
+	// 		setSecondClickedNumber('');
+	// 		setDisplayResultNumber(variable);
+	// 		setClickedEqualSign(false);
+	// 	} else if (!currentAction) {
+	// 		if (
+	// 			(firstClickedNumber === '0' && variable === '.') ||
+	// 			(variable === '.' && !firstClickedNumber.includes('.'))
+	// 		) {
+	// 			setFirstClickedNumber('0.');
+	// 			setDisplayResultNumber('0.');
+	// 		} else {
+	// 			const updatedNumber = `${firstClickedNumber}${variable}`;
+	// 			setFirstClickedNumber(updatedNumber);
+	// 			setDisplayResultNumber(updatedNumber);
+	// 		}
+	// 	} else if (currentAction) {
+	// 		if (
+	// 			(secondClickedNumber === '0' && variable === '.') ||
+	// 			(variable === '.' && !secondClickedNumber.includes('.'))
+	// 		) {
+	// 			setSecondClickedNumber('0.');
+	// 			setDisplayResultNumber('0.');
+	// 		} else {
+	// 			const updatedNumber = `${secondClickedNumber}${variable}`;
+	// 			setSecondClickedNumber(updatedNumber);
+	// 		}
+	// 	}
+	// };
 
 	useEffect(() => {
 		setDisplayResultNumber(firstClickedNumber);
-		console.log('firstClickedNumber :', firstClickedNumber);
 	}, [firstClickedNumber]);
 
 	useEffect(() => {
 		setDisplayResultNumber(secondClickedNumber);
-		console.log('secondClickedNumber :', secondClickedNumber);
 	}, [secondClickedNumber]);
 
 	useEffect(() => {
 		console.log('NEW RENDER');
 
-		if (!firstClickedNumber) {
+		if (
+			!firstClickedNumber &&
+			!secondClickedNumber &&
+			!currentAction &&
+			!clickedEqualSign
+		) {
 			setDisplayResultNumber('0');
 		} else if (
 			clickedEqualSign &&
 			!isNaN(firstClickedNumber) &&
 			!isNaN(secondClickedNumber)
 		) {
+			console.log('USEFEKTE11111');
 			setDisplayResultNumber(firstClickedNumber + secondClickedNumber);
 			setFirstClickedNumber(firstClickedNumber + secondClickedNumber);
 			setSecondClickedNumber('');
 			setCurrentAction('');
+		} else if (
+			!clickedEqualSign &&
+			currentAction &&
+			firstClickedNumber &&
+			!secondClickedNumber
+		) {
+			console.log('PERPANAUDOJAM VISKA');
+			setDisplayResultNumber(firstClickedNumber + secondClickedNumber);
+			setFirstClickedNumber(firstClickedNumber + secondClickedNumber);
+			setSecondClickedNumber('');
 		}
 
 		setClickedEqualSign(false);
 		console.log('clickedEqualSign :', clickedEqualSign);
 		console.log('currentAction in useEffect :', currentAction);
+		console.log('firstClickedNumber :', firstClickedNumber);
+		console.log('secondClickedNumber :', secondClickedNumber);
+		console.log('displayedNumber :', displayResultNumber);
 	}, [clickedEqualSign, firstClickedNumber, secondClickedNumber]);
 
 	const handleClickAction = (action) => {
@@ -116,9 +170,19 @@ function App() {
 	};
 
 	const deleteNumber = () => {
-		if (secondClickedNumber && currentAction) {
+		if (firstClickedNumber && secondClickedNumber && currentAction) {
+			console.log('ISTRINAM ANTRAJI SKAICIUKA');
 			setSecondClickedNumber('');
+			setFirstClickedNumber(firstClickedNumber);
+			setDisplayResultNumber(firstClickedNumber);
+			setClickedEqualSign(false);
 		} else if (firstClickedNumber && !currentAction && !secondClickedNumber) {
+			console.log('ISTRINAM PIRMAJI SKAICIUKA1111111');
+			setFirstClickedNumber('');
+			setClickedEqualSign(false);
+			setCurrentAction('');
+		} else if (firstClickedNumber && currentAction && !secondClickedNumber) {
+			console.log('ISTRINAM PIRMAJI SKAICIUKA222222222');
 			setFirstClickedNumber('');
 			setClickedEqualSign(false);
 			setCurrentAction('');
