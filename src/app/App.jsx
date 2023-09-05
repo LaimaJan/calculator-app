@@ -17,7 +17,6 @@ function App() {
 
 	const handleButton = (variable) => {
 		const number = variable;
-		console.log(number);
 
 		if (number === '.' && displayNumber.includes('.')) {
 			return;
@@ -32,7 +31,7 @@ function App() {
 				setDisplayNumber(updatedResult);
 			} else {
 				const updatedResult = result + number;
-				console.log('updatedNumber first NUMBER :', updatedResult);
+
 				setResult(updatedResult);
 				setDisplayNumber(updatedResult);
 
@@ -40,17 +39,14 @@ function App() {
 			}
 		} else {
 			if (number === '.' && !temporaryNumber.includes('.')) {
-				console.log('Pirmas');
 				const updatedTemporaryNumber = '0' + number;
 				setTemporaryNumber(updatedTemporaryNumber);
 				setDisplayNumber(updatedTemporaryNumber);
 			} else if (temporaryNumber === '0' && !temporaryNumber.includes('.')) {
-				console.log('Antras');
 				const updatedTemporaryNumber = number;
 				setTemporaryNumber(updatedTemporaryNumber);
 				setDisplayNumber(updatedTemporaryNumber);
 			} else {
-				console.log('Trecias');
 				const updatedTemporaryNumber = temporaryNumber + number;
 				setTemporaryNumber(updatedTemporaryNumber);
 				setDisplayNumber(updatedTemporaryNumber);
@@ -59,14 +55,11 @@ function App() {
 	};
 
 	const getAction = (calculatorAction) => {
-		console.log('getting the action :', calculatorAction);
 		setAction(calculatorAction);
 	};
 
 	const calculateResult = (action) => {
 		const calculatorAction = action;
-
-		console.log('calculateResult function in action:', calculatorAction);
 
 		switch (calculatorAction) {
 			case '+':
@@ -92,17 +85,14 @@ function App() {
 
 	const sumNumbers = () => {
 		const num1 = parseFloat(result);
-		console.log('num1 :', num1);
+
 		setTemporaryNumber((prevNumberTwo) => {
 			const num2 = parseFloat(prevNumberTwo);
-			console.log('num2 :', num2);
 
 			if (!isNaN(num1) && !isNaN(num2)) {
 				const sum = num1 + num2;
 				setResult(sum);
 				setDisplayNumber(sum);
-
-				console.log('sumNumbers:', sum);
 
 				setTemporaryNumber('');
 				setAction('');
@@ -125,8 +115,6 @@ function App() {
 				setResult(subraction);
 				setDisplayNumber(subraction);
 
-				console.log('subraction:', subraction);
-
 				setTemporaryNumber('');
 				setAction('');
 
@@ -148,8 +136,6 @@ function App() {
 				setResult(multiplication);
 				setDisplayNumber(multiplication);
 
-				console.log('multiplication:', multiplication);
-
 				setTemporaryNumber('');
 				setAction('');
 
@@ -170,8 +156,6 @@ function App() {
 				const division = num1 / num2;
 				setResult(division);
 				setDisplayNumber(division);
-
-				console.log('division:', division);
 
 				setTemporaryNumber('');
 				setAction('');
