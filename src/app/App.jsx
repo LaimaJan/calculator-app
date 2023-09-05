@@ -9,7 +9,6 @@ function App() {
 	const [temporaryNumber, setTemporaryNumber] = useState('');
 	const [displayNumber, setDisplayNumber] = useState('0');
 	const [action, setAction] = useState('');
-	console.log('action :', action);
 
 	const changeTheme = (theme) => {
 		setCurrentTheme(theme);
@@ -19,15 +18,22 @@ function App() {
 		const number = variable;
 
 		if (!action) {
-			console.log('numberOne :', number);
-			setResult(number);
-			setDisplayNumber(number);
+			if (result === '0' || result === '.') {
+				setResult('0.');
+				const updatedResult = result + number;
+				console.log('updatedNumber first NUMBER :', updatedResult);
+				setResult(updatedResult);
+				setDisplayNumber(updatedResult);
+			}
+			const updatedResult = result + number;
+			console.log('updatedNumber first NUMBER :', updatedResult);
+			setResult(updatedResult);
+			setDisplayNumber(updatedResult);
 		} else {
-			console.log('numberTwo :', number);
-			setTemporaryNumber(number);
-			setDisplayNumber(number);
-
-			calculateResult();
+			const updatedTemporaryNumber = temporaryNumber + number;
+			console.log('updatedNumber SECOND NUMBER :', updatedTemporaryNumber);
+			setTemporaryNumber(updatedTemporaryNumber);
+			setDisplayNumber(updatedTemporaryNumber);
 		}
 	};
 
@@ -36,7 +42,7 @@ function App() {
 		setAction(calculatorAction);
 	};
 
-	const calculateResult = () => {
+	const calculateResult = (action) => {
 		const calculatorAction = action;
 
 		console.log('calculateResult function in action:', calculatorAction);
@@ -65,13 +71,15 @@ function App() {
 
 	const sumNumbers = () => {
 		const num1 = parseFloat(result);
-
+		console.log('num1 :', num1);
 		setTemporaryNumber((prevNumberTwo) => {
 			const num2 = parseFloat(prevNumberTwo);
+			console.log('num2 :', num2);
 
 			if (!isNaN(num1) && !isNaN(num2)) {
 				const sum = num1 + num2;
 				setResult(sum);
+				setDisplayNumber(sum);
 
 				console.log('sumNumbers:', sum);
 
@@ -94,6 +102,7 @@ function App() {
 			if (!isNaN(num1) && !isNaN(num2)) {
 				const subraction = num1 - num2;
 				setResult(subraction);
+				setDisplayNumber(subraction);
 
 				console.log('subraction:', subraction);
 
@@ -116,6 +125,7 @@ function App() {
 			if (!isNaN(num1) && !isNaN(num2)) {
 				const multiplication = num1 * num2;
 				setResult(multiplication);
+				setDisplayNumber(multiplication);
 
 				console.log('multiplication:', multiplication);
 
@@ -138,6 +148,7 @@ function App() {
 			if (!isNaN(num1) && !isNaN(num2)) {
 				const division = num1 / num2;
 				setResult(division);
+				setDisplayNumber(division);
 
 				console.log('division:', division);
 
@@ -176,9 +187,9 @@ function App() {
 	};
 
 	const getFinalResult = () => {
-		console.log('getFinalResult:');
-
-		setDisplayNumber(result);
+		const calculatorAction = action;
+		console.log('action :', calculatorAction);
+		calculateResult(action);
 	};
 
 	return (
