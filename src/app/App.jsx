@@ -9,6 +9,7 @@ function App() {
 	const [temporaryNumber, setTemporaryNumber] = useState('');
 	const [displayNumber, setDisplayNumber] = useState('0');
 	const [action, setAction] = useState('');
+	const [numberEntered, setNumberEntered] = useState(false);
 
 	const changeTheme = (theme) => {
 		setCurrentTheme(theme);
@@ -23,15 +24,37 @@ function App() {
 		}
 
 		if (!action) {
-			const updatedResult = result + number;
-			console.log('updatedNumber first NUMBER :', updatedResult);
-			setResult(updatedResult);
-			setDisplayNumber(updatedResult);
+			if (number === '0' && displayNumber === '0') {
+				return;
+			} else if (number === '.' && displayNumber === '0') {
+				const updatedResult = '0' + number;
+				setResult(updatedResult);
+				setDisplayNumber(updatedResult);
+			} else {
+				const updatedResult = result + number;
+				console.log('updatedNumber first NUMBER :', updatedResult);
+				setResult(updatedResult);
+				setDisplayNumber(updatedResult);
+
+				setNumberEntered(true);
+			}
 		} else {
-			const updatedTemporaryNumber = temporaryNumber + number;
-			console.log('updatedNumber SECOND NUMBER :', updatedTemporaryNumber);
-			setTemporaryNumber(updatedTemporaryNumber);
-			setDisplayNumber(updatedTemporaryNumber);
+			if (number === '.' && !temporaryNumber.includes('.')) {
+				console.log('Pirmas');
+				const updatedTemporaryNumber = '0' + number;
+				setTemporaryNumber(updatedTemporaryNumber);
+				setDisplayNumber(updatedTemporaryNumber);
+			} else if (temporaryNumber === '0' && !temporaryNumber.includes('.')) {
+				console.log('Antras');
+				const updatedTemporaryNumber = number;
+				setTemporaryNumber(updatedTemporaryNumber);
+				setDisplayNumber(updatedTemporaryNumber);
+			} else {
+				console.log('Trecias');
+				const updatedTemporaryNumber = temporaryNumber + number;
+				setTemporaryNumber(updatedTemporaryNumber);
+				setDisplayNumber(updatedTemporaryNumber);
+			}
 		}
 	};
 
@@ -54,7 +77,7 @@ function App() {
 				subtractNumbers();
 
 				break;
-			case '*':
+			case 'x':
 				multiplyNumbers();
 
 				break;
@@ -204,6 +227,7 @@ function App() {
 						getFinalResult={getFinalResult}
 						deleteNumber={deleteNumber}
 						resetResult={resetResult}
+						numberEntered={numberEntered}
 					/>
 				</div>
 			</div>

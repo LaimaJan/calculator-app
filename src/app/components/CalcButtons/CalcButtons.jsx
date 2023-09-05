@@ -8,6 +8,7 @@ function CalcButtons({
 	getFinalResult,
 	deleteNumber,
 	resetResult,
+	numberEntered,
 }) {
 	return (
 		<>
@@ -16,7 +17,9 @@ function CalcButtons({
 					className="button-type-one calculator-button"
 					value={'7'}
 					label={'7'}
-					onClick={() => handleButton('7')}
+					onClick={() => {
+						handleButton('7');
+					}}
 				>
 					7
 				</button>
@@ -72,7 +75,11 @@ function CalcButtons({
 					className="button-type-one action-button"
 					value={'+'}
 					label={'+'}
-					onClick={() => getAction('+')}
+					onClick={() => {
+						if (numberEntered) {
+							getAction('+');
+						}
+					}}
 				>
 					+
 				</button>
@@ -105,7 +112,9 @@ function CalcButtons({
 					value={'-'}
 					label={'-'}
 					onClick={() => {
-						getAction('-');
+						if (numberEntered) {
+							getAction('-');
+						}
 					}}
 				>
 					-
@@ -130,7 +139,11 @@ function CalcButtons({
 					className="button-type-one action-button"
 					value={'/'}
 					label={'/'}
-					onClick={() => getAction('/')}
+					onClick={() => {
+						if (numberEntered) {
+							getAction('/');
+						}
+					}}
 				>
 					/
 				</button>
@@ -138,7 +151,11 @@ function CalcButtons({
 					className="button-type-one action-button"
 					value={'x'}
 					label={'x'}
-					onClick={() => getAction('x')}
+					onClick={() => {
+						if (numberEntered) {
+							getAction('x');
+						}
+					}}
 				>
 					x
 				</button>
@@ -168,6 +185,7 @@ function CalcButtons({
 
 CalcButtons.propTypes = {
 	currentTheme: PropTypes.string.isRequired,
+	numberEntered: PropTypes.bool.isRequired,
 	handleButton: PropTypes.func.isRequired,
 	getAction: PropTypes.func.isRequired,
 	getFinalResult: PropTypes.func.isRequired,
