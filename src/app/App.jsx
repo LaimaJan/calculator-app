@@ -16,15 +16,13 @@ function App() {
 
 	const handleButton = (variable) => {
 		const number = variable;
+		console.log(number);
+
+		if (number === '.' && displayNumber.includes('.')) {
+			return;
+		}
 
 		if (!action) {
-			if (result === '0' || result === '.') {
-				setResult('0.');
-				const updatedResult = result + number;
-				console.log('updatedNumber first NUMBER :', updatedResult);
-				setResult(updatedResult);
-				setDisplayNumber(updatedResult);
-			}
 			const updatedResult = result + number;
 			console.log('updatedNumber first NUMBER :', updatedResult);
 			setResult(updatedResult);
@@ -163,23 +161,19 @@ function App() {
 	};
 
 	const deleteNumber = () => {
-		console.log('delete working');
 		if (result && temporaryNumber && action) {
 			setTemporaryNumber('');
-			displayNumber(result);
+			setDisplayNumber(result);
 		} else if (result && !temporaryNumber && !action) {
-			console.log('aaaaa');
 			setResult('');
 			setDisplayNumber('0');
 		} else if (result && !temporaryNumber && action) {
-			console.log('aaaaa');
 			setResult('');
 			setDisplayNumber('0');
 		}
 	};
 
 	const resetResult = () => {
-		console.log('reset working');
 		setTemporaryNumber('');
 		setResult('');
 		setDisplayNumber('0');
@@ -187,8 +181,6 @@ function App() {
 	};
 
 	const getFinalResult = () => {
-		const calculatorAction = action;
-		console.log('action :', calculatorAction);
 		calculateResult(action);
 	};
 

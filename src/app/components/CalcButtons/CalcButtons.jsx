@@ -104,7 +104,9 @@ function CalcButtons({
 					className="button-type-one action-button"
 					value={'-'}
 					label={'-'}
-					onClick={() => getAction('-')}
+					onClick={() => {
+						getAction('-');
+					}}
 				>
 					-
 				</button>
