@@ -132,8 +132,10 @@ export const resetResult = (
 	setTemporaryNumber,
 	setResult,
 	setDisplayNumber,
-	setAction
+	setAction,
+	setNumberEntered
 ) => {
+	setNumberEntered(false);
 	setTemporaryNumber('');
 	setResult('');
 	setDisplayNumber('0');

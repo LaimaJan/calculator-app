@@ -10,6 +10,7 @@ import {
 	deleteNumber,
 	resetResult,
 } from './functions/calcFunctions';
+import handleButton from './functions/handleButton';
 
 function App() {
 	const [currentTheme, setCurrentTheme] = useState('default');
@@ -23,43 +24,18 @@ function App() {
 		setCurrentTheme(theme);
 	};
 
-	const handleButton = (variable) => {
-		const number = variable;
-
-		if (number === '.' && displayNumber.includes('.')) {
-			return;
-		}
-
-		if (!action) {
-			if (number === '0' && displayNumber === '0') {
-				return;
-			} else if (number === '.' && displayNumber === '0') {
-				const updatedResult = '0' + number;
-				setResult(updatedResult);
-				setDisplayNumber(updatedResult);
-			} else {
-				const updatedResult = result + number;
-
-				setResult(updatedResult);
-				setDisplayNumber(updatedResult);
-
-				setNumberEntered(true);
-			}
-		} else {
-			if (number === '.' && !temporaryNumber.includes('.')) {
-				const updatedTemporaryNumber = '0' + number;
-				setTemporaryNumber(updatedTemporaryNumber);
-				setDisplayNumber(updatedTemporaryNumber);
-			} else if (temporaryNumber === '0' && !temporaryNumber.includes('.')) {
-				const updatedTemporaryNumber = number;
-				setTemporaryNumber(updatedTemporaryNumber);
-				setDisplayNumber(updatedTemporaryNumber);
-			} else {
-				const updatedTemporaryNumber = temporaryNumber + number;
-				setTemporaryNumber(updatedTemporaryNumber);
-				setDisplayNumber(updatedTemporaryNumber);
-			}
-		}
+	const handleButtonClick = (variable) => {
+		handleButton(
+			variable,
+			action,
+			displayNumber,
+			result,
+			temporaryNumber,
+			setNumberEntered,
+			setResult,
+			setTemporaryNumber,
+			setDisplayNumber
+		);
 	};
 
 	const getAction = (calculatorAction) => {
@@ -121,7 +97,13 @@ function App() {
 	};
 
 	const resetResultHandler = () => {
-		resetResult(setTemporaryNumber, setResult, setDisplayNumber, setAction);
+		resetResult(
+			setTemporaryNumber,
+			setResult,
+			setDisplayNumber,
+			setAction,
+			setNumberEntered
+		);
 	};
 
 	const getFinalResult = () => {
@@ -143,7 +125,7 @@ function App() {
 				<div className="button-container">
 					<CalcButtons
 						currentTheme={currentTheme}
-						handleButton={handleButton}
+						handleButton={handleButtonClick}
 						getAction={getAction}
 						getFinalResult={getFinalResult}
 						deleteNumber={deleteNumberHandler}
