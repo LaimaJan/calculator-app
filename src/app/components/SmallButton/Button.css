@@ -1,0 +1,10 @@
+button {
+	width: 85px;
+	height: 45px;
+	border: none;
+	margin: 5px 0 5px 0;
+	font: var(--font-size-numbers);
+	font-weight: 600;
+	border-radius: 8px;
+	border-bottom: solid 4px var(--grayish-orange-key-shadow);
+}

@@ -1,69 +1,71 @@
+@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@300;400;500;600;700&display=swap');
+
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+	line-height: 1.5;
+	font-family: 'League Spartan';
+	--font-size-numbers: 32px;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+	font-synthesis: none;
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-text-size-adjust: 100%;
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
-}
+	--mobile-width: 375px;
+	--desktop-width: 1440px;
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
+	/* 1 THEME background */
+	--dark-blue-main-background: hsl(222, 26%, 31%);
+	--very-dark-blue-toggle: hsl(223, 31%, 20%);
+	--dark-blue-screen-background: hsl(224, 36%, 15%);
 
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
+	/* Keys */
+	--blue-key-background: hsl(225, 21%, 49%);
+	--blue-key-shadow: hsl(224, 28%, 35%);
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
+	--red-background-toggle: hsl(6, 63%, 50%);
+	--dark-red-key-shadow: hsl(6, 70%, 34%);
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
+	--light-grayish-orange-key-bc: hsl(30, 25%, 89%);
+	--grayish-orange-key-shadow: hsl(28, 16%, 65%);
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+	/* Text */
+	--very-dark-grayish-blue: hsl(221, 14%, 31%);
+	--white: hsl(0, 0%, 100%);
+
+	/* 2 THEME background */
+	--light-gray-main-background: hsl(0, 0%, 90%);
+	--grayish-red-toggle-keypad: hsl(0, 5%, 81%);
+	--very-light-gray-screen-background: hsl(0, 0%, 93%);
+
+	/* Keys */
+	--dark-moderate-cyan-background: hsl(185, 42%, 37%);
+	--very-dark-cyan-shadow: hsl(185, 58%, 25%);
+
+	--orange-background-toggle: hsl(25, 98%, 40%);
+	--dark-orange-shadow: hsl(25, 99%, 27%);
+
+	--light-grayish-yellow-key-bc: hsl(45, 7%, 89%);
+	--dark-grayish-orange-key-shadow: hsl(35, 11%, 61%);
+
+	/* Text */
+	--very-dark-grayish-yellow: hsl(60, 10%, 19%);
+
+	/* 3 THEME background */
+	--very-dark-violet-main-background: hsl(268, 75%, 9%);
+	--very-dark-violet-toggle-keypad-background: hsl(268, 71%, 12%);
+
+	/* Keys */
+	--dark-violet-background: hsl(281, 89%, 26%);
+	--vivid-magenta-key-shadow: hsl(285, 91%, 52%);
+
+	--pure-cyan-background-toggle: hsl(176, 100%, 44%);
+	--soft-cyan-shadow: hsl(177, 92%, 70%);
+
+	--very-dark-violet-background: hsl(268, 47%, 21%);
+	--dark-magenta-shadow: hsl(290, 70%, 36%);
+
+	/* Text */
+	--light-yellow: hsl(52, 100%, 62%);
+	--very-dark-blue: hsl(198, 20%, 13%);
 }
