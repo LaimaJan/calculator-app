@@ -2,6 +2,14 @@ import './App.css';
 import CalcThemeButtons from './components/CalcThemeButtons/CalcThemeButtons';
 import CalcButtons from './components/CalcButtons/CalcButtons';
 import { useState } from 'react';
+import {
+	sumNumbers,
+	subtractNumbers,
+	multiplyNumbers,
+	divideNumbers,
+	deleteNumber,
+	resetResult,
+} from './functions/calcFunctions';
 
 function App() {
 	const [currentTheme, setCurrentTheme] = useState('default');
@@ -58,133 +66,62 @@ function App() {
 		setAction(calculatorAction);
 	};
 
-	const calculateResult = (action) => {
-		const calculatorAction = action;
-
-		switch (calculatorAction) {
+	const calculateResult = (operation) => {
+		switch (operation) {
 			case '+':
-				sumNumbers();
-
+				sumNumbers(
+					result,
+					setResult,
+					setDisplayNumber,
+					setTemporaryNumber,
+					setAction
+				);
 				break;
 			case '-':
-				subtractNumbers();
-
+				subtractNumbers(
+					result,
+					setResult,
+					setDisplayNumber,
+					setTemporaryNumber,
+					setAction
+				);
 				break;
 			case 'x':
-				multiplyNumbers();
-
+				multiplyNumbers(
+					result,
+					setResult,
+					setDisplayNumber,
+					setTemporaryNumber,
+					setAction
+				);
 				break;
 			case '/':
-				divideNumbers();
+				divideNumbers(
+					result,
+					setResult,
+					setDisplayNumber,
+					setTemporaryNumber,
+					setAction
+				);
 				break;
-
 			default:
 				break;
 		}
 	};
 
-	const sumNumbers = () => {
-		const num1 = parseFloat(result);
-
-		setTemporaryNumber((prevNumberTwo) => {
-			const num2 = parseFloat(prevNumberTwo);
-
-			if (!isNaN(num1) && !isNaN(num2)) {
-				const sum = num1 + num2;
-				setResult(sum);
-				setDisplayNumber(sum);
-
-				setTemporaryNumber('');
-				setAction('');
-
-				return String(sum);
-			}
-
-			return prevNumberTwo;
-		});
+	const deleteNumberHandler = () => {
+		deleteNumber(
+			result,
+			temporaryNumber,
+			action,
+			setTemporaryNumber,
+			setDisplayNumber,
+			setResult
+		);
 	};
 
-	const subtractNumbers = () => {
-		const num1 = parseFloat(result);
-
-		setTemporaryNumber((prevNumberTwo) => {
-			const num2 = parseFloat(prevNumberTwo);
-
-			if (!isNaN(num1) && !isNaN(num2)) {
-				const subraction = num1 - num2;
-				setResult(subraction);
-				setDisplayNumber(subraction);
-
-				setTemporaryNumber('');
-				setAction('');
-
-				return String(subraction);
-			}
-
-			return prevNumberTwo;
-		});
-	};
-
-	const multiplyNumbers = () => {
-		const num1 = parseFloat(result);
-
-		setTemporaryNumber((prevNumberTwo) => {
-			const num2 = parseFloat(prevNumberTwo);
-
-			if (!isNaN(num1) && !isNaN(num2)) {
-				const multiplication = num1 * num2;
-				setResult(multiplication);
-				setDisplayNumber(multiplication);
-
-				setTemporaryNumber('');
-				setAction('');
-
-				return String(multiplication);
-			}
-
-			return prevNumberTwo;
-		});
-	};
-
-	const divideNumbers = () => {
-		const num1 = parseFloat(result);
-
-		setTemporaryNumber((prevNumberTwo) => {
-			const num2 = parseFloat(prevNumberTwo);
-
-			if (!isNaN(num1) && !isNaN(num2)) {
-				const division = num1 / num2;
-				setResult(division);
-				setDisplayNumber(division);
-
-				setTemporaryNumber('');
-				setAction('');
-
-				return String(division);
-			}
-
-			return prevNumberTwo;
-		});
-	};
-
-	const deleteNumber = () => {
-		if (result && temporaryNumber && action) {
-			setTemporaryNumber('');
-			setDisplayNumber(result);
-		} else if (result && !temporaryNumber && !action) {
-			setResult('');
-			setDisplayNumber('0');
-		} else if (result && !temporaryNumber && action) {
-			setResult('');
-			setDisplayNumber('0');
-		}
-	};
-
-	const resetResult = () => {
-		setTemporaryNumber('');
-		setResult('');
-		setDisplayNumber('0');
-		setAction('');
+	const resetResultHandler = () => {
+		resetResult(setTemporaryNumber, setResult, setDisplayNumber, setAction);
 	};
 
 	const getFinalResult = () => {
@@ -209,8 +146,8 @@ function App() {
 						handleButton={handleButton}
 						getAction={getAction}
 						getFinalResult={getFinalResult}
-						deleteNumber={deleteNumber}
-						resetResult={resetResult}
+						deleteNumber={deleteNumberHandler}
+						resetResult={resetResultHandler}
 						numberEntered={numberEntered}
 					/>
 				</div>
